@@ -1,29 +1,31 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace films
 {
     class Program
     {
-        public static HttpClient client = new HttpClient();
         static async Task Main(string[] args)
         {
             Console.WriteLine("TMDB film viewer!");
-            DotNetEnv.Env.TraversePath().Load();
-            string key = Environment.GetEnvironmentVariable("API_KEY");
-            Console.WriteLine(key);
-            var response = await client.GetAsync($"https://api.themoviedb.org/3/movie/550?api_key={key}");
-            //Console.WriteLine(response.StatusCode);
-            if (response.StatusCode.ToString().Equals("NotFound")){ Console.WriteLine("no dice!"); }
-            else
+            while (true)
             {
-                response.EnsureSuccessStatusCode();
-                var responseContent = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseContent);
-                Console.WriteLine("Title: ");
-                Console.WriteLine(responseContent.Substring(responseContent.IndexOf("title")) + "title".Length );
+                Console.WriteLine("\nOptions:");
+                Console.WriteLine("1) Select film");
+                Console.WriteLine("2) Search film");
+                Console.WriteLine("0) Exit program");
+                int input = 99;
+                bool parse = int.TryParse(Console.ReadLine(), out input);
+                if (!parse) { continue; }
+                switch (input)
+                {
+                    case 0: Environment.Exit(0); break;
+                    case 1: await DisplayFilm.Run();   break;
+                    case 2: Console.WriteLine("TWO"); break;
+                    default: Console.WriteLine("invalid option\n"); break;
+                }
             }
+
         }
     }
 }
