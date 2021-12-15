@@ -34,9 +34,9 @@ namespace films
                 Console.WriteLine($"Release date: {film.Release_date}");
                 Console.WriteLine($"Vote Average: {film.Vote_average}");
                 Console.WriteLine($"Homepage: {film.Homepage}");
-                Console.WriteLine($"Poster: {film.Poster_path}");
+                Console.WriteLine($"Poster: {Program.PosterBase}{film.Poster_path}");
                 Console.Write($"Original language: {film.Original_language}");
-                Console.WriteLine("-"+Program.lang[film.Original_language] );
+                Console.WriteLine("-"+ Program.lang[film.Original_language] );
             }
         }
     }
